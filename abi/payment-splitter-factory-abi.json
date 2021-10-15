@@ -189,7 +189,7 @@
         "type": "uint256"
       }
     ],
-    "name": "getUserRoyaltyReceiversByIndex",
+    "name": "getUserPaymentSplitterByIndex",
     "outputs": [
       {
         "internalType": "uint256",

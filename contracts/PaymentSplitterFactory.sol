@@ -110,18 +110,18 @@ contract PaymentSplitterFactory is Ownable {
         return accountPaymentSplitters[_account].length();
     }
 
-    function getUserRoyaltyReceiversByIndex(address _account, uint256 _index)
+    function getUserPaymentSplitterByIndex(address _account, uint256 _index)
         external
         view
         returns (uint256, address)
     {
-        uint256 royaltyReceiverId = accountPaymentSplitters[_account].at(
+        uint256 paymentSplitterId = accountPaymentSplitters[_account].at(
             _index
         );
 
         return (
-            royaltyReceiverId,
-            address(paymentSplitters[royaltyReceiverId])
+            paymentSplitterId,
+            address(paymentSplitters[paymentSplitterId])
         );
     }
 }
