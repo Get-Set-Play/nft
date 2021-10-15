@@ -1,0 +1,22 @@
+{
+  "name": "exeedme-nft",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "flattenNFT": "npx hardhat flatten contracts/NFT.sol > flattened/NFT.sol",
+    "flattenMarketplace": "npx hardhat flatten contracts/Marketplace.sol > flattened/Marketplace.sol",
+    "flattenPaymentSplitterFactory": "npx hardhat flatten contracts/PaymentSplitterFactory.sol > flattened/PaymentSplitterFactory.sol"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/contracts": "^3.4.0",
+    "chai": "^4.3.4",
+    "ethereum-waffle": "^3.3.0",
+    "ethers": "^5.2.0",
+    "hardhat": "^2.3.0"
+  }
+}
