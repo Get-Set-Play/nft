@@ -4,7 +4,6 @@ pragma solidity ^0.7.6;
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 // Based on: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/finance/PaymentSplitter.sol
 
@@ -12,12 +11,7 @@ contract PaymentSplitter {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    event PayeeAdded(address account, uint256 shares);
-    event PaymentReleased(
-        IERC20 indexed token,
-        address account,
-        uint256 amount
-    );
+    address public factory;
 
     address[] private payees;
 
@@ -34,17 +28,26 @@ contract PaymentSplitter {
         for (uint256 i = 0; i < _payees.length; i++) {
             require(_payees[i] != address(0), "Account is the zero address");
             require(_shares[i] > 0, "Shares are 0");
-            require(shares[_payees[i]] == 0, "Account already has shares");
+            require(shares[_payees[i]] == 0, "Duplicate account");
 
             payees.push(_payees[i]);
             shares[_payees[i]] = _shares[i];
             totalShares = totalShares.add(_shares[i]);
-
-            emit PayeeAdded(_payees[i], _shares[i]);
         }
+
+        factory = msg.sender;
     }
 
-    function release(IERC20 _token, address _account) public {
+    modifier onlyFactory() {
+        require(msg.sender == factory, "Not factory");
+        _;
+    }
+
+    function release(IERC20 _token, address _account)
+        external
+        onlyFactory
+        returns (uint256)
+    {
         uint256 accountShares = shares[_account];
         require(accountShares > 0, "Account has no shares");
 
@@ -65,21 +68,7 @@ contract PaymentSplitter {
 
         _token.safeTransfer(_account, payment);
 
-        emit PaymentReleased(_token, _account, payment);
-    }
-
-    function release(IERC20[] memory _tokens, address[] memory _accounts)
-        public
-    {
-        for (uint256 i = 0; i < _tokens.length; i++) {
-            for (uint256 j = 0; j < _accounts.length; j++) {
-                release(_tokens[i], _accounts[j]);
-            }
-        }
-    }
-
-    function release(IERC20[] calldata _tokens) external {
-        release(_tokens, payees);
+        return payment;
     }
 
     function getPending(IERC20 _token, address _account)
