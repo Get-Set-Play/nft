@@ -3,13 +3,11 @@ pragma solidity ^0.7.6;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/utils/EnumerableSet.sol";
 
 import "./PaymentSplitterV1.sol";
 
 contract PaymentSplitterFactory is Ownable {
     using SafeMath for uint256;
-    using EnumerableSet for EnumerableSet.UintSet;
 
     mapping(address => bool) public isPaymentSplitter;
     mapping(address => PaymentSplitter[]) private accountPaymentSplitters;

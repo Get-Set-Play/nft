@@ -21,7 +21,7 @@ contract PaymentSplitter {
     mapping(IERC20 => uint256) public totalReleased;
     mapping(IERC20 => mapping(address => uint256)) public released;
 
-    constructor(address[] memory _payees, uint256[] memory _shares) payable {
+    constructor(address[] memory _payees, uint256[] memory _shares)  {
         require(_payees.length > 0, "No payees");
         require(_payees.length == _shares.length, "Length mismatch");
 
