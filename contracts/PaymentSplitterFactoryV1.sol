@@ -63,13 +63,13 @@ contract PaymentSplitterFactory is Ownable {
             for (uint256 j = 0; j < _accounts.length; j++) {
                 uint256 amount = PaymentSplitter(_paymentSplitter).release(
                     _tokens[i],
-                    _accounts[i]
+                    _accounts[j]
                 );
 
                 emit ReleaseLog(
                     PaymentSplitter(_paymentSplitter),
                     _tokens[i],
-                    _accounts[i],
+                    _accounts[j],
                     amount
                 );
             }
