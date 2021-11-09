@@ -16,12 +16,12 @@ contract PaymentSplitter {
     address[] private payees;
 
     uint256 public totalShares;
-    mapping(address => uint256) private shares;
+    mapping(address => uint256) public shares;
 
     mapping(IERC20 => uint256) public totalReleased;
     mapping(IERC20 => mapping(address => uint256)) public released;
 
-    constructor(address[] memory _payees, uint256[] memory _shares)  {
+    constructor(address[] memory _payees, uint256[] memory _shares) {
         require(_payees.length > 0, "No payees");
         require(_payees.length == _shares.length, "Length mismatch");
 
@@ -38,16 +38,12 @@ contract PaymentSplitter {
         factory = msg.sender;
     }
 
-    modifier onlyFactory() {
-        require(msg.sender == factory, "Not factory");
-        _;
-    }
-
     function release(IERC20 _token, address _account)
         external
-        onlyFactory
         returns (uint256)
     {
+        require(msg.sender == factory, "Not factory");
+
         uint256 accountShares = shares[_account];
         require(accountShares > 0, "Account has no shares");
 
