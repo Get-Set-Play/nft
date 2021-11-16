@@ -7,7 +7,8 @@
     "flattenNFT": "npx hardhat flatten contracts/NFT.sol > flattened/NFT.sol",
     "flattenMarketplace": "npx hardhat flatten contracts/Marketplace.sol > flattened/Marketplace.sol",
     "flattenPaymentSplitterFactory": "npx hardhat flatten contracts/PaymentSplitterFactoryV1.sol > flattened/PaymentSplitterFactoryV1.sol",
-    "flattenSoldiersSociety": "npx hardhat flatten contracts/SoldiersSociety.sol > flattened/SoldiersSociety.sol"
+    "flattenSoldiersSociety": "npx hardhat flatten contracts/SoldiersSociety.sol > flattened/SoldiersSociety.sol",
+    "flattenPrizePool": "npx hardhat flatten contracts/PrizePool.sol > flattened/PrizePool.sol"
   },
   "author": "",
   "license": "ISC",
